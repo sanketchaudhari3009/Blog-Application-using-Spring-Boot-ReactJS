@@ -14,8 +14,8 @@ import lombok.Setter;
 @Entity
 @Table(name="users")
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 public class User {
 	
 	@Id
@@ -25,6 +25,9 @@ public class User {
 	@Column(name="user_name",nullable = false, length = 100)
 	private String name;
 	private String email;
+
+	private String about;
+
 	private String password;
 	
 	
