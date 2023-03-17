@@ -1,5 +1,8 @@
 package com.application.blog.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +25,13 @@ public class Category {
 	private Integer categoryId;
 	
 	@Column(name="title", length = 100, nullable = false)
-	private String categoryTitle;
+	private String categoryTitle; 
 	
 	@Column(name="description")
 	private String categoryDescription;
+	
+	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Post> posts=new ArrayList<>();
 	
 
 }
