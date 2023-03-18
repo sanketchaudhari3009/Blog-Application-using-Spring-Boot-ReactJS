@@ -2,6 +2,7 @@ package com.application.blog.services.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.application.blog.entities.Post;
 import com.application.blog.entities.User;
 import com.application.blog.exceptions.ResourceNotFoundException;
 import com.application.blog.payloads.PostDto;
+import com.application.blog.payloads.PostResponse;
 import com.application.blog.repositories.CategoryRepo;
 import com.application.blog.repositories.PostRepo;
 import com.application.blog.repositories.UserRepo;
@@ -63,23 +65,66 @@ public class PostServiceImpl implements PostService {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+    public PostResponse getAllPost(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+
+        Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+
+        Page<Post> pagePost = this.postRepo.findAll(p);
+
+        List<Post> allPosts = pagePost.getContent();
+
+        List<PostDto> postDtos = allPosts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
+                .collect(Collectors.toList());
+
+        PostResponse postResponse = new PostResponse();
+
+        postResponse.setContent(postDtos);
+        postResponse.setPageNumber(pagePost.getNumber());
+        postResponse.setPageSize(pagePost.getSize());
+        postResponse.setTotalElements(pagePost.getTotalElements());
+
+        postResponse.setTotalPages(pagePost.getTotalPages());
+        postResponse.setLastPage(pagePost.isLast());
+
+        return postResponse;
+    }
 
 	@Override
 	public PostDto getPostById(Integer postId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Post post = this.postRepo.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "post id", postId));
+        return this.modelMapper.map(post, PostDto.class);
 	}
 
 	@Override
 	public List<PostDto> getPostsByCategory(Integer categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Category cat = this.categoryRepo.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "category id", categoryId));
+        List<Post> posts = this.postRepo.findByCategory(cat);
+
+        List<PostDto> postDtos = posts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
+                .collect(Collectors.toList());
+
+        return postDtos;
 	}
 
 	@Override
 	public List<PostDto> getPostsByUser(Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		User user = this.userRepo.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User ", "userId ", userId));
+        List<Post> posts = this.postRepo.findByUser(user);
+
+        List<PostDto> postDtos = posts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
+                .collect(Collectors.toList());
+
+        return postDtos;
 	}
 
 	@Override
