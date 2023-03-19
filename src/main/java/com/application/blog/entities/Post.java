@@ -1,6 +1,8 @@
 package com.application.blog.entities;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -33,9 +35,9 @@ public class Post {
 
 	@ManyToOne
 	private User user;
-//	
-//	
-//	@OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-//	private Set<Comment> comments=new HashSet<>();
+	
+	
+	@OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+	private Set<Comment> comments=new HashSet<>();
 	
 }
