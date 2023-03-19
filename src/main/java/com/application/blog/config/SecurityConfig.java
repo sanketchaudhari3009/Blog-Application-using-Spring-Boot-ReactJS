@@ -24,6 +24,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.application.blog.security.CustomUserDetailService;
+import com.application.blog.security.JwtAuthenticationEntryPoint;
+import com.application.blog.security.JwtAuthenticationFilter;
 
 
 @Configuration
@@ -33,6 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
 	
+	@Autowired
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	
+	@Autowired
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
@@ -40,10 +48,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			csrf()
 			.disable()
 			.authorizeHttpRequests()
+			.antMatchers("api/v1/auth/login")
+			.permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
-			.httpBasic();
+			.exceptionHandling()
+			.authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+			.and()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		
 	}
 
@@ -56,6 +72,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+	
+	
 	
 	
 

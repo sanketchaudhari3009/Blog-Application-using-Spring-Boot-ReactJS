@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.application.blog.entities.*;
@@ -18,9 +19,14 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+
 	
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -87,6 +93,11 @@ public class UserServiceImpl implements UserService {
 	{
 		UserDto userDto = this.modelMapper.map(user, UserDto.class);
 		return userDto;
+	}
+
+	@Override
+	public UserDto registerNewUser(UserDto user) {
+		return null;
 	}
 	
 	
