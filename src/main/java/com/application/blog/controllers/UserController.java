@@ -2,6 +2,7 @@ package com.application.blog.controllers;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class UserController {
 
 	//ADMIN
 	// DELETE -delete user
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Integer uid) {
 		this.userService.deleteUser(uid);
