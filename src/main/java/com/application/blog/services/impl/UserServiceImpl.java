@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.application.blog.exceptions.*;
+import com.application.blog.payloads.UserDto;
+import com.application.blog.services.UserService;
+import com.application.blog.repositories.*;
 import com.application.blog.config.AppConstants;
 import com.application.blog.entities.*;
-import com.application.blog.payloads.UserDto;
-import com.application.blog.repositories.*;
-import com.application.blog.services.UserService;
-import com.application.blog.exceptions.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -112,7 +112,5 @@ public class UserServiceImpl implements UserService {
 
 		return this.modelMapper.map(newUser, UserDto.class);
 	}
-	
-	
 
 }

@@ -6,6 +6,4 @@ import com.application.blog.entities.Category;
 
 public interface CategoryRepo extends JpaRepository<Category, Integer> {
 
-	
-	
 }

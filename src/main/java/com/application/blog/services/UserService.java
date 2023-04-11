@@ -5,8 +5,9 @@ import java.util.List;
 import com.application.blog.payloads.UserDto;
 
 public interface UserService {
-	
+
 	UserDto registerNewUser(UserDto user);
+	
 	
 	UserDto createUser(UserDto user);
 
@@ -17,5 +18,5 @@ public interface UserService {
 	List<UserDto> getAllUsers();
 
 	void deleteUser(Integer userId);
-	
+
 }

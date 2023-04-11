@@ -12,9 +12,8 @@ import com.application.blog.repositories.CommentRepo;
 import com.application.blog.repositories.PostRepo;
 import com.application.blog.services.CommentService;
 
-
 @Service
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private PostRepo postRepo;

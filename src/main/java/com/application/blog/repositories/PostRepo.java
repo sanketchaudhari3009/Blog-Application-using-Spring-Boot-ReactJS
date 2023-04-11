@@ -10,11 +10,13 @@ import com.application.blog.entities.Category;
 import com.application.blog.entities.Post;
 import com.application.blog.entities.User;
 
-public interface PostRepo extends JpaRepository<Post, Integer>{
+public interface PostRepo extends JpaRepository<Post, Integer> {
 
 	List<Post> findByUser(User user);
 	List<Post> findByCategory(Category category);	
 	
 	@Query("select p from Post p where p.title like :key")
 	List<Post> searchByTitle(@Param("key") String title);
+	
+
 }

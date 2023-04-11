@@ -12,9 +12,9 @@ import com.application.blog.repositories.UserRepo;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
-	
+
 	@Autowired
-	private UserRepo userRepo;			
+	private UserRepo userRepo;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

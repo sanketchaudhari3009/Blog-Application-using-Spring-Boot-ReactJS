@@ -4,16 +4,22 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.application.blog.entities.Category;
 import com.application.blog.entities.Comment;
+import com.application.blog.entities.User;
 
-import lombok.*;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class PostDto {
-	
+
 	private Integer postId;
 	
 	private String title;
@@ -30,5 +36,10 @@ public class PostDto {
 	
 	private Set<CommentDto> comments=new HashSet<>();
 
-
+	
+	
+	
+	
+	
+	
 }
