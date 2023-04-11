@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+**/src/main/resources/
 
 
 
@@ -29,8 +30,6 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-!**/src/main/**/resources/
-
 !**/src/test/**/build/
 
 ### VS Code ###
