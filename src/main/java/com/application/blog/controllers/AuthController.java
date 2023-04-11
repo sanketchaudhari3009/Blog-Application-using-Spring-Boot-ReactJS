@@ -26,16 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.blog.entities.User;
 import com.application.blog.exceptions.ApiException;
 import com.application.blog.payloads.JwtAuthRequest;
+import com.application.blog.payloads.JwtAuthResponse;
 import com.application.blog.payloads.UserDto;
 import com.application.blog.repositories.UserRepo;
-import com.application.blog.payloads.JwtAuthResponse;
 import com.application.blog.security.JwtTokenHelper;
 import com.application.blog.services.UserService;
 
 @RestController
-@RequestMapping("api/v1/auth/")
+@RequestMapping("/api/v1/auth/")
 public class AuthController {
-	
+
 	@Autowired
 	private JwtTokenHelper jwtTokenHelper;
 

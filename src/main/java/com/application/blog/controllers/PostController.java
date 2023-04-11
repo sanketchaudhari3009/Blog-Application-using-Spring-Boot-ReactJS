@@ -1,5 +1,6 @@
 package com.application.blog.controllers;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.application.blog.config.AppConstants;
+import com.application.blog.entities.Post;
 import com.application.blog.payloads.ApiResponse;
 import com.application.blog.payloads.PostDto;
 import com.application.blog.payloads.PostResponse;
@@ -32,27 +34,26 @@ import com.application.blog.services.FileService;
 import com.application.blog.services.PostService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1/")
 public class PostController {
-	
+
 	@Autowired
 	private PostService postService;
-	
+
 	@Autowired
 	private FileService fileService;
-	
+
 	@Value("${project.image}")
 	private String path;
-	
-	//create post
+//	create
+
 	@PostMapping("/user/{userId}/category/{categoryId}/posts")
 	public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable Integer userId,
 			@PathVariable Integer categoryId) {
-		
 		PostDto createPost = this.postService.createPost(postDto, userId, categoryId);
 		return new ResponseEntity<PostDto>(createPost, HttpStatus.CREATED);
 	}
-	
+
 	// get by user
 
 	@GetMapping("/user/{userId}/posts")
@@ -62,7 +63,7 @@ public class PostController {
 		return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
 
 	}
-	
+
 	// get by category
 
 	@GetMapping("/category/{categoryId}/posts")
@@ -72,7 +73,7 @@ public class PostController {
 		return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
 
 	}
-	
+
 	// get all posts
 
 	@GetMapping("/posts")
@@ -99,11 +100,10 @@ public class PostController {
 	// delete post
 	@DeleteMapping("/posts/{postId}")
 	public ApiResponse deletePost(@PathVariable Integer postId) {
-		
 		this.postService.deletePost(postId);
 		return new ApiResponse("Post is successfully deleted !!", true);
 	}
-	
+
 	// update post
 
 	@PutMapping("/posts/{postId}")
@@ -113,14 +113,14 @@ public class PostController {
 		return new ResponseEntity<PostDto>(updatePost, HttpStatus.OK);
 
 	}
-	
+
 	// search
 	@GetMapping("/posts/search/{keywords}")
 	public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable("keywords") String keywords) {
 		List<PostDto> result = this.postService.searchPosts(keywords);
 		return new ResponseEntity<List<PostDto>>(result, HttpStatus.OK);
 	}
-	
+
 	// post image upload
 
 	@PostMapping("/post/image/upload/{postId}")
@@ -136,7 +136,8 @@ public class PostController {
 
 	}
 	
-	//method to serve files
+
+    //method to serve files
     @GetMapping(value = "/post/image/{imageName}",produces = MediaType.IMAGE_JPEG_VALUE)
     public void downloadImage(
             @PathVariable("imageName") String imageName,
@@ -148,6 +149,5 @@ public class PostController {
         StreamUtils.copy(resource,response.getOutputStream())   ;
 
     }
-	
 
 }
