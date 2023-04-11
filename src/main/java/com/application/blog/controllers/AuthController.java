@@ -28,7 +28,7 @@ import com.application.blog.exceptions.ApiException;
 import com.application.blog.payloads.JwtAuthRequest;
 import com.application.blog.payloads.UserDto;
 import com.application.blog.repositories.UserRepo;
-import com.application.blog.security.JwtAuthResponse;
+import com.application.blog.payloads.JwtAuthResponse;
 import com.application.blog.security.JwtTokenHelper;
 import com.application.blog.services.UserService;
 

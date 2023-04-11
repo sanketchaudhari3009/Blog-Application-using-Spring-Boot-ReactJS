@@ -17,9 +17,10 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+
 @Configuration
 public class SwaggerConfig {
-	
+
 	public static final String AUTHORIZATION_HEADER = "Authorization";
 
 	private ApiKey apiKeys() {
@@ -48,11 +49,10 @@ public class SwaggerConfig {
 
 	private ApiInfo getInfo() {
 
-		return new ApiInfo("Blogging Application : Backend",
-				"This project is developed by Sanket Chaudhari", "1.0", "Terms of Service",
-				new Contact("Sanket", "https://github.com/sanketchaudhari3009", "sanketchaudhari3009@gmail.com"),
+		return new ApiInfo("Blogging Application : Backend Course",
+				"This project is developed by Learn Code With Durgesh", "1.0", "Terms of Service",
+				new Contact("Durgesh", "https://learncodewithdurgesh.com", "learncodewithdurgesh@gmail.com"),
 				"License of APIS", "API license URL", Collections.emptyList());
 	};
-
 
 }

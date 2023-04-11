@@ -1,6 +1,5 @@
-package com.application.blog.security;
+package com.application.blog.payloads;
 
-import com.application.blog.payloads.UserDto;
 
 import lombok.Data;
 

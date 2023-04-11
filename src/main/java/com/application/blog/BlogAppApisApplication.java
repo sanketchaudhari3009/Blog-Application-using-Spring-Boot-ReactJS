@@ -15,8 +15,7 @@ import com.application.blog.entities.Role;
 import com.application.blog.repositories.RoleRepo;
 
 @SpringBootApplication
-public class BlogAppApisApplication implements CommandLineRunner{
-	
+public class BlogAppApisApplication implements CommandLineRunner {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -63,4 +62,3 @@ public class BlogAppApisApplication implements CommandLineRunner{
 	}
 
 }
-																																					
